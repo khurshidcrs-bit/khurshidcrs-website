@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Khurshid CRS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>.modal-open { overflow: hidden; }</style>
+</head>
+<body class="min-h-screen bg-white text-gray-900">
+  <header class="relative">
+    <div id="hero" class="h-[42vh] w-full bg-center bg-cover"></div>
+    <div class="absolute inset-0 bg-black/40 pointer-events-none"></div>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <h1 id="bedrijfsnaam" class="text-white text-4xl md:text-5xl font-bold drop-shadow">Khurshid CRS</h1>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-10">
+    <div class="mb-6 flex items-center gap-2">
+      <div class="relative w-full md:w-1/2">
+        <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="11" cy="11" r="8" stroke-width="2"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"></line>
+        </svg>
+        <input id="zoek" class="pl-10 w-full border rounded-lg px-3 py-2" placeholder="Zoek op merk, bouwjaar, brandstof, etc.">
+      </div>
+    </div>
+    <div id="cards" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
+    <p id="geen" class="hidden text-sm text-gray-500">Geen auto's gevonden. Pas uw zoekopdracht aan.</p>
+  </main>
+
+  <footer class="mt-16 border-t bg-gray-50">
+    <div class="mx-auto max-w-6xl px-4 py-10">
+      <div class="grid gap-6 md:grid-cols-3">
+        <div>
+          <h3 class="text-lg font-semibold" id="footer-bedrijfsnaam">Khurshid CRS</h3>
+          <p class="mt-2 text-sm text-gray-500">Betrouwbare occasions en persoonlijke service.</p>
+        </div>
+        <div>
+          <h4 class="text-sm font-medium">Adres</h4>
+          <ul id="adres" class="mt-2 space-y-1 text-sm text-gray-500"></ul>
+        </div>
+        <div>
+          <h4 class="text-sm font-medium">Contact</h4>
+          <ul class="mt-2 space-y-1 text-sm text-gray-500">
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.3 1.77.57 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.12a2 2 0 0 1 2.11-.45c.83.27 1.7.45 2.6.57A2 2 0 0 1 22 16.92z" stroke-width="2"></path>
+              </svg>
+              <a id="tel" href="tel:0658966881" class="hover:underline">0658966881</a>
+            </li>
+            <li class="flex items-center gap-2">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M4 4h16v16H4z" stroke-width="2"></path>
+                <path d="m22 6-10 7L2 6" stroke-width="2"></path>
+              </svg>
+              <a id="mail" href="mailto:info@khurshidcrs.nl" class="hover:underline">info@khurshidcrs.nl</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 text-xs text-gray-500">© <span id="jaar"></span> <span id="copy-bedrijfsnaam">Khurshid CRS</span>. Alle rechten voorbehouden.</div>
+    </div>
+  </footer>
+
+  <div id="modal" class="fixed inset-0 bg-black/50 items-center justify-center hidden p-4">
+    <div class="bg-white rounded-2xl max-w-3xl w-full overflow-hidden">
+      <div class="flex items-center justify-between px-4 py-3 border-b">
+        <h2 id="modal-titel" class="text-lg font-semibold"></h2>
+        <span id="modal-prijs" class="inline-flex items-center rounded-full border px-3 py-1 text-xs"></span>
+      </div>
+      <div class="p-4 space-y-4">
+        <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
+          <img id="carousel-img" class="h-full w-full object-cover" alt="Auto foto">
+          <button id="prev" class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow hidden" aria-label="Vorige foto">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="15 18 9 12 15 6" stroke-width="2"></polyline>
+            </svg>
+          </button>
+          <button id="next" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow hidden" aria-label="Volgende foto">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+              <polyline points="9 18 15 12 9 6" stroke-width="2"></polyline>
+            </svg>
+          </button>
+        </div>
+        <div id="chips" class="flex flex-wrap gap-2"></div>
+        <p id="beschrijving" class="text-sm leading-relaxed text-gray-600"></p>
+        <div class="pt-2 flex justify-end">
+          <button id="sluit" class="px-4 py-2 rounded-lg border">Sluiten</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BEDRIJFSNAAM = "Khurshid CRS";
+    const HEADER_AFBEELDING = "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1600&auto=format&fit=crop";
+    const ADRESREGELS = ["Zomerdijk 11", "1505HW Zaandam", "Nederland"];
+    const CONTACT = { telefoon: "0658966881", email: "info@khurshidcrs.nl" };
+
+    const VOORRAAD = [
+      { id: "a1", merk: "Volkswagen Golf", bouwjaar: 2019, km: 68500, prijs: 15950, brandstof: "Benzine", transmissie: "Automaat", kleur: "Grijs",
+        fotos: [
+          "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1400&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1400&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1549921296-3cce76b0d2c1?q=80&w=1400&auto=format&fit=crop"
+        ],
+        beschrijving: "Zeer nette Volkswagen Golf met rijke uitrusting, dealeronderhouden en nieuwe APK." },
+      { id: "a2", merk: "BMW 3 Serie 320i", bouwjaar: 2017, km: 102300, prijs: 17900, brandstof: "Benzine", transmissie: "Handgeschakeld", kleur: "Zwart",
+        fotos: [
+          "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1400&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1400&auto=format&fit=crop"
+        ],
+        beschrijving: "Sportieve 3 Serie met onderhoudshistorie bekend. Net interieur en rijdt fantastisch." },
+      { id: "a3", merk: "Toyota Yaris", bouwjaar: 2020, km: 41000, prijs: 14900, brandstof: "Hybride", transmissie: "Automaat", kleur: "Wit",
+        fotos: [
+          "https://images.unsplash.com/photo-1548611716-3c57e1f0c35f?q=80&w=1400&auto=format&fit=crop"
+        ],
+        beschrijving: "Zuinig en betrouwbaar. Ideale stadsauto met moderne veiligheidsopties." }
+    ];
+
+    const euro = (n) => n.toLocaleString("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+    const el = (tag, className = "", children = []) => {
+      const e = document.createElement(tag);
+      if (className) e.className = className;
+      if (!Array.isArray(children)) children = [children];
+      children.forEach(c => { if (c !== null && c !== undefined) e.append(c.nodeType ? c : document.createTextNode(c)); });
+      return e;
+    };
+    const chip = (text) => el("span", "inline-flex items-center rounded-full border px-3 py-1 text-xs", text);
+
+    const state = { zoek: "", selectie: null, index: 0 };
+
+    function initStatic() {
+      document.getElementById("jaar").textContent = new Date().getFullYear();
+      document.getElementById("copy-bedrijfsnaam").textContent = BEDRIJFSNAAM;
+      document.getElementById("bedrijfsnaam").textContent = BEDRIJFSNAAM;
+      document.getElementById("footer-bedrijfsnaam").textContent = BEDRIJFSNAAM;
+      const hero = document.getElementById("hero");
+      hero.style.backgroundImage = `url('${HEADER_AFBEELDING}')`;
+      const adres = document.getElementById("adres");
+      ADRESREGELS.forEach(r => adres.append(el("li", "flex items-center gap-2", [el("span", "", r)])));
+      const tel = document.getElementById("tel");
+      tel.href = `tel:${CONTACT.telefoon}`; tel.textContent = CONTACT.telefoon;
+      const mail = document.getElementById("mail");
+      mail.href = `mailto:${CONTACT.email}`; mail.textContent = CONTACT.email;
+    }
+
+    function filterVoorraad(q) {
+      const query = (q || "").trim().toLowerCase();
+      if (!query) return VOORRAAD;
+      return VOORRAAD.filter(a => [a.merk, a.bouwjaar, a.km, a.brandstof, a.transmissie, a.kleur, a.beschrijving]
+        .filter(Boolean).some(v => String(v).toLowerCase().includes(query)));
+    }
+
+    function renderCards() {
+      const container = document.getElementById("cards");
+      const geen = document.getElementById("geen");
+      container.innerHTML = "";
+      const lijst = filterVoorraad(state.zoek);
+      if (!lijst.length) {
+        geen.classList.remove("hidden");
+        return;
+      }
+      geen.classList.add("hidden");
+      lijst.forEach(auto => {
+        const card = el("div", "overflow-hidden rounded-2xl shadow-sm border");
+        const imgWrap = el("div", "aspect-video w-full bg-gray-100");
+        const img = el("img", "h-full w-full object-cover");
+        img.loading = "lazy";
+        img.src = (auto.fotos && auto.fotos[0]) ? auto.fotos[0] : "";
+        img.alt = auto.merk;
+        imgWrap.append(img);
+        const head = el("div", "p-4 border-b");
+        const title = el("div", "flex items-center justify-between text-xl");
+        title.append(el("span", "", auto.merk), chip(euro(auto.prijs)));
+        head.append(title);
+        const body = el("div", "p-4 text-sm text-gray-500");
+        const chipsRow = el("div", "flex flex-wrap gap-2");
+        chipsRow.append(chip(String(auto.bouwjaar)));
+        chipsRow.append(chip(`${Number(auto.km).toLocaleString('nl-NL')} km`));
+        if (auto.brandstof) chipsRow.append(chip(auto.brandstof));
+        if (auto.transmissie) chipsRow.append(chip(auto.transmissie));
+        if (auto.kleur) chipsRow.append(chip(auto.kleur));
+        body.append(chipsRow);
+        const knop = el("button", "mt-4 w-full px-4 py-2 rounded-lg bg-gray-900 text-white", "Bekijk details");
+        knop.addEventListener("click", () => openModal(auto));
+        body.append(knop);
+        card.append(imgWrap, head, body);
+        container.append(card);
+      });
+    }
+
+    const modal = document.getElementById("modal");
+    const modalTitel = document.getElementById("modal-titel");
+    const modalPrijs = document.getElementById("modal-prijs");
+    const beschrijving = document.getElementById("beschrijving");
+    const chipsContainer = document.getElementById("chips");
+    const carouselImg = document.getElementById("carousel-img");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+    const sluitBtn = document.getElementById("sluit");
+
+    function openModal(auto) {
+      state.selectie = auto;
+      state.index = 0;
+      modalTitel.textContent = auto.merk;
+      modalPrijs.textContent = euro(auto.prijs);
+      beschrijving.textContent = auto.beschrijving || "";
+      chipsContainer.innerHTML = "";
+      chipsContainer.append(chip(`Bouwjaar: ${auto.bouwjaar}`));
+      chipsContainer.append(chip(`Kilometerstand: ${Number(auto.km).toLocaleString('nl-NL')} km`));
+      if (auto.brandstof) chipsContainer.append(chip(`Brandstof: ${auto.brandstof}`));
+      if (auto.transmissie) chipsContainer.append(chip(`Transmissie: ${auto.transmissie}`));
+      if (auto.kleur) chipsContainer.append(chip(`Kleur: ${auto.kleur}`));
+
+      const hasFotos = auto.fotos && auto.fotos.length > 0;
+      carouselImg.src = hasFotos ? auto.fotos[0] : "";
+      carouselImg.alt = hasFotos ? `${auto.merk} 1/${auto.fotos.length}` : "Geen afbeeldingen beschikbaar";
+      prevBtn.classList.toggle("hidden", !hasFotos || auto.fotos.length < 2);
+      nextBtn.classList.toggle("hidden", !hasFotos || auto.fotos.length < 2);
+
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+      document.body.classList.add("modal-open");
+    }
+
+    function closeModal() {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      document.body.classList.remove("modal-open");
+      state.selectie = null;
+    }
+
+    function nextImg() {
+      const fotos = state.selectie?.fotos || [];
+      if (!fotos.length) return;
+      state.index = (state.index + 1) % fotos.length;
+      carouselImg.src = fotos[state.index];
+      carouselImg.alt = `${state.selectie.merk} ${state.index + 1}/${fotos.length}`;
+    }
+
+    function prevImg() {
+      const fotos = state.selectie?.fotos || [];
+      if (!fotos.length) return;
+      state.index = (state.index - 1 + fotos.length) % fotos.length;
+      carouselImg.src = fotos[state.index];
+      carouselImg.alt = `${state.selectie.merk} ${state.index + 1}/${fotos.length}`;
+    }
+
+    document.getElementById("zoek").addEventListener("input", (e) => {
+      state.zoek = e.target.value;
+      renderCards();
+    });
+    nextBtn.addEventListener("click", nextImg);
+    prevBtn.addEventListener("click", prevImg);
+    sluitBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+
+    initStatic();
+    renderCards();
+  </script>
+</body>
+</html>
