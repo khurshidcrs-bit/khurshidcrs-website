@@ -71,7 +71,7 @@
   </div>
 
   <script>
-    const HEADER_AFBEELDING = "./assets/header-voorgevel.png";
+    const HEADER_AFBEELDING = "./assets/header-original.jpg";
     const ADRESREGELS = ["Zomerdijk 11", "1505HW Zaandam", "Nederland"];
     const VOORRAAD = [
   {
@@ -185,7 +185,10 @@
 
     function initStatic() {
       document.getElementById("jaar").textContent = new Date().getFullYear();
-      document.getElementById("hero").style.backgroundImage = `url('${HEADER_AFBEELDING}')`;
+      const hero = document.getElementById("hero");
+      hero.style.backgroundImage = `url('${HEADER_AFBEELDING}')`;
+      hero.style.backgroundPosition = "center";
+      hero.style.backgroundSize = "cover";
       const adres = document.getElementById("adres");
       ADRESREGELS.forEach(r => adres.append(el("li", "", r)));
     }
