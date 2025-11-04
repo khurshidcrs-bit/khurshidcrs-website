@@ -1,12 +1,2 @@
-# Basis Netlify config voor statische site
 [build]
-  publish = "."
-
-# Handige headers (cache mag je later finetunen)
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+publish = "."

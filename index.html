@@ -19,11 +19,7 @@
   <main class="mx-auto max-w-6xl px-4 py-10">
     <div class="mb-6 flex items-center gap-2">
       <div class="relative w-full md:w-1/2">
-        <svg class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <circle cx="11" cy="11" r="8" stroke-width="2"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2"></line>
-        </svg>
-        <input id="zoek" class="pl-10 w-full border rounded-lg px-3 py-2" placeholder="Zoek op merk, bouwjaar, brandstof, etc.">
+        <input id="zoek" class="w-full border rounded-lg px-3 py-2" placeholder="Zoek op merk, bouwjaar, brandstof, etc.">
       </div>
     </div>
     <div id="cards" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></div>
@@ -34,7 +30,7 @@
     <div class="mx-auto max-w-6xl px-4 py-10">
       <div class="grid gap-6 md:grid-cols-3">
         <div>
-          <h3 class="text-lg font-semibold" id="footer-bedrijfsnaam">Khurshid CRS</h3>
+          <h3 class="text-lg font-semibold">Khurshid CRS</h3>
           <p class="mt-2 text-sm text-gray-500">Betrouwbare occasions en persoonlijke service.</p>
         </div>
         <div>
@@ -44,23 +40,12 @@
         <div>
           <h4 class="text-sm font-medium">Contact</h4>
           <ul class="mt-2 space-y-1 text-sm text-gray-500">
-            <li class="flex items-center gap-2">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.1 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.3 1.77.57 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.12a2 2 0 0 1 2.11-.45c.83.27 1.7.45 2.6.57A2 2 0 0 1 22 16.92z" stroke-width="2"></path>
-              </svg>
-              <a id="tel" href="tel:0658966881" class="hover:underline">0658966881</a>
-            </li>
-            <li class="flex items-center gap-2">
-              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path d="M4 4h16v16H4z" stroke-width="2"></path>
-                <path d="m22 6-10 7L2 6" stroke-width="2"></path>
-              </svg>
-              <a id="mail" href="mailto:info@khurshidcrs.nl" class="hover:underline">info@khurshidcrs.nl</a>
-            </li>
+            <li>Tel: <a id="tel" href="tel:0658966881" class="hover:underline">0658966881</a></li>
+            <li>E-mail: <a id="mail" href="mailto:khurshidcrs@gmail.com" class="hover:underline">khurshidcrs@gmail.com</a></li>
           </ul>
         </div>
       </div>
-      <div class="mt-8 text-xs text-gray-500">© <span id="jaar"></span> <span id="copy-bedrijfsnaam">Khurshid CRS</span>. Alle rechten voorbehouden.</div>
+      <div class="mt-8 text-xs text-gray-500">© <span id="jaar"></span> Khurshid CRS. Alle rechten voorbehouden.</div>
     </div>
   </footer>
 
@@ -73,16 +58,8 @@
       <div class="p-4 space-y-4">
         <div class="relative aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
           <img id="carousel-img" class="h-full w-full object-cover" alt="Auto foto">
-          <button id="prev" class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow hidden" aria-label="Vorige foto">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="15 18 9 12 15 6" stroke-width="2"></polyline>
-            </svg>
-          </button>
-          <button id="next" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow hidden" aria-label="Volgende foto">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <polyline points="9 18 15 12 9 6" stroke-width="2"></polyline>
-            </svg>
-          </button>
+          <button id="prev" class="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow hidden">◀</button>
+          <button id="next" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow hidden">▶</button>
         </div>
         <div id="chips" class="flex flex-wrap gap-2"></div>
         <p id="beschrijving" class="text-sm leading-relaxed text-gray-600"></p>
@@ -94,31 +71,106 @@
   </div>
 
   <script>
-    const BEDRIJFSNAAM = "Khurshid CRS";
-    const HEADER_AFBEELDING = "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1600&auto=format&fit=crop";
+    const HEADER_AFBEELDING = "./assets/header-voorgevel.png";
     const ADRESREGELS = ["Zomerdijk 11", "1505HW Zaandam", "Nederland"];
-    const CONTACT = { telefoon: "0658966881", email: "info@khurshidcrs.nl" };
-
     const VOORRAAD = [
-      { id: "a1", merk: "Volkswagen Golf", bouwjaar: 2019, km: 68500, prijs: 15950, brandstof: "Benzine", transmissie: "Automaat", kleur: "Grijs",
-        fotos: [
-          "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1400&auto=format&fit=crop",
-          "https://images.unsplash.com/photo-1525609004556-c46c7d6cf023?q=80&w=1400&auto=format&fit=crop",
-          "https://images.unsplash.com/photo-1549921296-3cce76b0d2c1?q=80&w=1400&auto=format&fit=crop"
-        ],
-        beschrijving: "Zeer nette kshdkahsdkhs Golf met rijke uitrusting, dealeronderhouden en nieuwe APK." },
-      { id: "a2", merk: "BMW 3 Serie 320i", bouwjaar: 2017, km: 102300, prijs: 17900, brandstof: "Benzine", transmissie: "Handgeschakeld", kleur: "Zwart",
-        fotos: [
-          "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1400&auto=format&fit=crop",
-          "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=1400&auto=format&fit=crop"
-        ],
-        beschrijving: "Sportieve 3 Serie met onderhoudshistorie bekend. Net interieur en rijdt fantastisch." },
-      { id: "a3", merk: "Toyota Yaris", bouwjaar: 2020, km: 41000, prijs: 14900, brandstof: "Hybride", transmissie: "Automaat", kleur: "Wit",
-        fotos: [
-          "https://images.unsplash.com/photo-1548611716-3c57e1f0c35f?q=80&w=1400&auto=format&fit=crop"
-        ],
-        beschrijving: "Zuinig en betrouwbaar. Ideale stadsauto met moderne veiligheidsopties." }
-    ];
+  {
+    "id": "vito2021",
+    "merk": "Mercedes-Benz Vito 116 Pro Tourer",
+    "bouwjaar": 2021,
+    "km": 150000,
+    "prijs": 29000,
+    "brandstof": "Diesel",
+    "transmissie": "Automaat",
+    "kleur": "Zwart",
+    "fotos": [
+      "./assets/vito-2021-1.avif",
+      "./assets/vito-2021-2.avif",
+      "./assets/vito-2021-3.avif"
+    ],
+    "beschrijving": "Zeer nette Vito 116 Pro Tourer (serie 447), dealeronderhouden en klaar voor zakelijk of privégebruik."
+  },
+  {
+    "id": "evito2020",
+    "merk": "Mercedes-Benz Vito Tourer eVito 129 Pro lang",
+    "bouwjaar": 2020,
+    "km": 55000,
+    "prijs": 27000,
+    "brandstof": "Elektriciteit",
+    "transmissie": "Automaat",
+    "kleur": "Wit",
+    "fotos": [
+      "./assets/evito-2020-1.jpeg",
+      "./assets/evito-2020-2.jpeg",
+      "./assets/evito-2020-3.jpeg"
+    ],
+    "beschrijving": "eVito 129 Pro lang (12/2020), 150 kW/204 pk, 90 kWh accu, 5 zitplaatsen, Euro 6d."
+  },
+  {
+    "id": "v250d2022",
+    "merk": "Mercedes-Benz V 250d LANG AMG-LINE",
+    "bouwjaar": 2022,
+    "km": 70000,
+    "prijs": 45000,
+    "brandstof": "Diesel",
+    "transmissie": "Automaat",
+    "kleur": "Grijs",
+    "fotos": [
+      "./assets/v250d-2022-1.jpeg",
+      "./assets/v250d-2022-2.jpeg",
+      "./assets/v250d-2022-3.jpeg"
+    ],
+    "beschrijving": "Luxe V 250d AMG-Line (08/2022), 190 pk, 2-zone airco, camera’s en schuifdeuren l/r, Euro 6d."
+  },
+  {
+    "id": "t61-2020",
+    "merk": "Volkswagen T6.1 Box 4Motion",
+    "bouwjaar": 2020,
+    "km": 185000,
+    "prijs": 18950,
+    "brandstof": "Diesel",
+    "transmissie": "Handgeschakeld",
+    "kleur": "Wit",
+    "fotos": [
+      "./assets/t61-2020-1.jpeg",
+      "./assets/t61-2020-2.jpeg",
+      "./assets/t61-2020-3.jpeg"
+    ],
+    "beschrijving": "Transporter T6.1 4MOTION (05/2020), 150 pk, camera en PDC v/a, Euro 6d-TEMP."
+  },
+  {
+    "id": "caddy-2022",
+    "merk": "Volkswagen Caddy Cargo",
+    "bouwjaar": 2022,
+    "km": 56000,
+    "prijs": 15000,
+    "brandstof": "Benzine",
+    "transmissie": "Handgeschakeld",
+    "kleur": "Rood",
+    "fotos": [
+      "./assets/caddy-2022-1.jpeg",
+      "./assets/caddy-2022-2.jpeg",
+      "./assets/caddy-2022-3.jpeg"
+    ],
+    "beschrijving": "Caddy 1.5 TSI (114 pk), kersenrood, 2 zitplaatsen, airco, Euro 6d."
+  },
+  {
+    "id": "bmw-218i-2020",
+    "merk": "BMW 218i Active Tourer",
+    "bouwjaar": 2020,
+    "km": 65000,
+    "prijs": 18950,
+    "brandstof": "Benzine",
+    "transmissie": "Automaat",
+    "kleur": "Zwart",
+    "fotos": [
+      "./assets/bmw-218i-2020-1.jpeg",
+      "./assets/bmw-218i-2020-2.jpeg",
+      "./assets/bmw-218i-2020-3.jpeg"
+    ],
+    "beschrijving": "BMW 2 Serie Active Tourer (F45), 140 pk, zwart metallic, onderhoud 10/2024 bij 55.605 km."
+  }
+];
 
     const euro = (n) => n.toLocaleString("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
     const el = (tag, className = "", children = []) => {
@@ -129,22 +181,13 @@
       return e;
     };
     const chip = (text) => el("span", "inline-flex items-center rounded-full border px-3 py-1 text-xs", text);
-
     const state = { zoek: "", selectie: null, index: 0 };
 
     function initStatic() {
       document.getElementById("jaar").textContent = new Date().getFullYear();
-      document.getElementById("copy-bedrijfsnaam").textContent = BEDRIJFSNAAM;
-      document.getElementById("bedrijfsnaam").textContent = BEDRIJFSNAAM;
-      document.getElementById("footer-bedrijfsnaam").textContent = BEDRIJFSNAAM;
-      const hero = document.getElementById("hero");
-      hero.style.backgroundImage = `url('${HEADER_AFBEELDING}')`;
+      document.getElementById("hero").style.backgroundImage = `url('${HEADER_AFBEELDING}')`;
       const adres = document.getElementById("adres");
-      ADRESREGELS.forEach(r => adres.append(el("li", "flex items-center gap-2", [el("span", "", r)])));
-      const tel = document.getElementById("tel");
-      tel.href = `tel:${CONTACT.telefoon}`; tel.textContent = CONTACT.telefoon;
-      const mail = document.getElementById("mail");
-      mail.href = `mailto:${CONTACT.email}`; mail.textContent = CONTACT.email;
+      ADRESREGELS.forEach(r => adres.append(el("li", "", r)));
     }
 
     function filterVoorraad(q) {
@@ -159,10 +202,7 @@
       const geen = document.getElementById("geen");
       container.innerHTML = "";
       const lijst = filterVoorraad(state.zoek);
-      if (!lijst.length) {
-        geen.classList.remove("hidden");
-        return;
-      }
+      if (!lijst.length) { geen.classList.remove("hidden"); return; }
       geen.classList.add("hidden");
       lijst.forEach(auto => {
         const card = el("div", "overflow-hidden rounded-2xl shadow-sm border");
@@ -217,49 +257,29 @@
 
       const hasFotos = auto.fotos && auto.fotos.length > 0;
       carouselImg.src = hasFotos ? auto.fotos[0] : "";
-      carouselImg.alt = hasFotos ? `${auto.merk} 1/${auto.fotos.length}` : "Geen afbeeldingen beschikbaar";
       prevBtn.classList.toggle("hidden", !hasFotos || auto.fotos.length < 2);
       nextBtn.classList.toggle("hidden", !hasFotos || auto.fotos.length < 2);
 
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
+      modal.classList.remove("hidden"); modal.classList.add("flex");
       document.body.classList.add("modal-open");
     }
 
     function closeModal() {
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
+      modal.classList.add("hidden"); 
+      modal.classList.remove("flex"); 
       document.body.classList.remove("modal-open");
       state.selectie = null;
     }
+    function nextImg() { const f = state.selectie?.fotos||[]; if(!f.length) return; state.index=(state.index+1)%f.length; carouselImg.src=f[state.index]; }
+    function prevImg() { const f = state.selectie?.fotos||[]; if(!f.length) return; state.index=(state.index-1+f.length)%f.length; carouselImg.src=f[state.index]; }
 
-    function nextImg() {
-      const fotos = state.selectie?.fotos || [];
-      if (!fotos.length) return;
-      state.index = (state.index + 1) % fotos.length;
-      carouselImg.src = fotos[state.index];
-      carouselImg.alt = `${state.selectie.merk} ${state.index + 1}/${fotos.length}`;
-    }
-
-    function prevImg() {
-      const fotos = state.selectie?.fotos || [];
-      if (!fotos.length) return;
-      state.index = (state.index - 1 + fotos.length) % fotos.length;
-      carouselImg.src = fotos[state.index];
-      carouselImg.alt = `${state.selectie.merk} ${state.index + 1}/${fotos.length}`;
-    }
-
-    document.getElementById("zoek").addEventListener("input", (e) => {
-      state.zoek = e.target.value;
-      renderCards();
-    });
-    nextBtn.addEventListener("click", nextImg);
-    prevBtn.addEventListener("click", prevImg);
-    sluitBtn.addEventListener("click", closeModal);
+    document.getElementById("zoek").addEventListener("input", (e) => { state.zoek = e.target.value; renderCards(); });
+    document.getElementById("next").addEventListener("click", nextImg);
+    document.getElementById("prev").addEventListener("click", prevImg);
+    document.getElementById("sluit").addEventListener("click", closeModal);
     modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
-    initStatic();
-    renderCards();
+    initStatic(); renderCards();
   </script>
 </body>
 </html>
